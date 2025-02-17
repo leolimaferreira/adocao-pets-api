@@ -16,7 +16,6 @@ public record CadastroPetDTO(
         String especie,
         Integer idade,
         StatusPet status,
-        String descricao,
-        UUID idAdotante
+        String descricao
 ) {
 }

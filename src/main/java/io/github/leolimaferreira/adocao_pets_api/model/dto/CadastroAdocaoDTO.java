@@ -9,6 +9,6 @@ public record CadastroAdocaoDTO(
         @NotNull(message = "campo obrigatório")
         UUID idPet,
         @NotNull(message = "campo obrigatório")
-        UUID idAutor
+        UUID idAdotante
 ) {
 }
