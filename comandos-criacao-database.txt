@@ -1,0 +1,33 @@
+-- PostgreSQL: Tabela Adotante
+CREATE TABLE adotante (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefone VARCHAR(20),
+    endereco VARCHAR(255),
+    data_nascimento DATE,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+-- PostgreSQL: Tabela Pet
+CREATE TABLE pet (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    nome VARCHAR(100) NOT NULL,
+    especie VARCHAR(50) NOT NULL,
+    idade INT,
+    status VARCHAR(20) DEFAULT 'DISPONIVEL',
+    descricao TEXT,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    id_adotante UUID,
+    FOREIGN KEY (id_adotante) REFERENCES adotante(id)
+);
+
+-- PostgreSQL: Tabela Adocao
+CREATE TABLE adocao (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id_pet UUID NOT NULL,
+    id_adotante UUID NOT NULL,
+    data_adocao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    FOREIGN KEY (id_pet) REFERENCES pet(id),
+    FOREIGN KEY (id_adotante) REFERENCES adotante(id)
+);
