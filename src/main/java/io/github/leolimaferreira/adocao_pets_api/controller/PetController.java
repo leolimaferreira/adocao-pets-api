@@ -33,6 +33,7 @@ public class PetController {
 
     @GetMapping("{id}")
     public ResponseEntity<ResultadoPesquisaPetDTO> obterDetalhesPorId(@PathVariable("id") String id) {
+
         return petService.obterPorId(UUID.fromString(id))
                 .map(pet -> {
                     var dto = mapper.toDTO(pet);

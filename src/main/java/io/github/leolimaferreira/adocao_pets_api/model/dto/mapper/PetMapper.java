@@ -14,7 +14,7 @@ public abstract class PetMapper {
     @Autowired
     AdotanteRepository adotanteRepository;
 
-    @Mapping(target = "adotante", expression = "java( adotanteRepository.findById(dto.idAdotante()).orElse(null) )")
+    //@Mapping(target = "adotante", expression = "java( adotanteRepository.findById(dto.idAdotante()).orElse(null) )")
     public abstract Pet toEntity(CadastroPetDTO dto);
 
     public abstract ResultadoPesquisaPetDTO toDTO(Pet pet);

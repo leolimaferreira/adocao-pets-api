@@ -42,4 +42,5 @@ public class AdotanteService {
     }
 
     public boolean possuiPet(Adotante adotante) {return petRepository.existsByAdotante(adotante);}
+
 }

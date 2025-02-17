@@ -29,4 +29,8 @@ public class AdocaoService {
     public Optional<Adocao> obterAdocaoPorId(UUID id) {return adocaoRepository.findById(id);}
 
     public void deletar(Adocao adocao) {adocaoRepository.delete(adocao);}
+
+    public void atualizarAdotante(Adotante adotante) {
+        adotanteRepository.save(adotante);
+    }
 }
