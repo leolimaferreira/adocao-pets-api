@@ -1,2 +1,2 @@
 # adocao-pets-api
- API para gerenciamento de adoções de pets
+ API em desenvolvimento para gerenciamento de adoções de pets
