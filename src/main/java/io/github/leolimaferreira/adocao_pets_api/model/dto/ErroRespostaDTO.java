@@ -1,9 +1,11 @@
 package io.github.leolimaferreira.adocao_pets_api.model.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
+@Schema(name = "Erro Resposta")
 public record ErroRespostaDTO(
         int status,
         String mensagem,

@@ -9,6 +9,10 @@ import io.github.leolimaferreira.adocao_pets_api.model.dto.ErroRespostaDTO;
 import io.github.leolimaferreira.adocao_pets_api.model.dto.mapper.AdocaoMapper;
 import io.github.leolimaferreira.adocao_pets_api.service.AdocaoService;
 import io.github.leolimaferreira.adocao_pets_api.service.AdotanteService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +26,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/adocao")
 @RequiredArgsConstructor
+@Tag(name = "Adoções")
 public class AdocaoController {
 
     private final AdocaoService adocaoService;
@@ -29,6 +34,12 @@ public class AdocaoController {
     private final AdotanteService adotanteService;
 
     @PostMapping
+    @Operation(summary = "Salvar", description = "Cadastrar nova adoção")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Cadastrado com sucesso."),
+            @ApiResponse(responseCode = "202", description = "Erro de validação."),
+            @ApiResponse(responseCode = "409", description = "Adoção já cadastrada.")
+    })
     public void salvar(@RequestBody @Valid CadastroAdocaoDTO dto) {
         Optional<Adotante> adotanteOptional = adocaoService.obterAdotantePorId(dto.idAdotante());
         Optional<Pet> petOptional = adocaoService.obterPetPorId(dto.idPet());
@@ -51,6 +62,11 @@ public class AdocaoController {
         }
     }
 
+    @Operation(summary = "Obter Detalhes", description = "Retorna os dados da adoção pelo ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Adoção encontrada."),
+            @ApiResponse(responseCode = "404", description = "Adoção não encontrada.")
+    })
     @GetMapping("{id}")
     public ResponseEntity<CadastroAdocaoDTO> obterDetalhes(@PathVariable("id") String id) {
         Optional<Adocao> adocaoOptional = adocaoService.obterAdocaoPorId(UUID.fromString(id));
@@ -63,6 +79,11 @@ public class AdocaoController {
                 }).orElseGet( () -> ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Deletar", description = "Deleta uma adoção existente")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Deletada com sucesso."),
+            @ApiResponse(responseCode = "404", description = "Adoção não encontrada."),
+    })
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deletar(@PathVariable("id") String id) {
         Optional<Adocao> adocaoOptional = adocaoService.obterAdocaoPorId(UUID.fromString(id));
